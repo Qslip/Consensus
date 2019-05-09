@@ -1,0 +1,4 @@
+beautifulsoup4==4.7.1
+Django==2.1
+pytz==2019.1
+soupsieve==1.9.1
