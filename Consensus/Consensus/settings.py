@@ -57,7 +57,7 @@ ROOT_URLCONF = 'Consensus.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,10 +65,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'django.core.context_processors.static',
             ],
         },
     },
 ]
+TEMPLATES_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
 
 WSGI_APPLICATION = 'Consensus.wsgi.application'
 
@@ -123,7 +127,27 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS=(
-    os.path.join(BASE_DIR,'static')
+    os.path.join(BASE_DIR,'static'),
 )
 
 AUTH_USER_MODEL = 'users.User'
+
+#配置 django-redis
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            # 'CONNECTION_POOL_KWARGS': {'max_connections': 100}
+        },
+    },
+}
+TIME_OUT = 1*60     # 设置缓存时间为 1 分钟
+
+SESSION_COOKIE_AGE = 1*60 #设置session过期时间为 1 分钟
+
+''' 配置 session 引擎 SESSION_ENGINE 为 redis，配置此处s ession 会存储在 redis 中，
+不会再去操作数据库了 '''
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
