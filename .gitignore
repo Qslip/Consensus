@@ -93,6 +93,8 @@ venv.bak/
 # Spyder project settings
 .spyderproject
 .spyproject
+cons_env/
+
 
 # Rope project settings
 .ropeproject
