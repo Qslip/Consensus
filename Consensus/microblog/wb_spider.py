@@ -12,7 +12,7 @@ import random
 import time
 import requests
 import django
-# import threading
+import threading
 from microblog.usergent import get_one_agent
 from django.db.utils import IntegrityError
 
@@ -29,10 +29,17 @@ class WbSpider:
     # headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}
 
     headers = {
-        'User-Agent': get_one_agent(),
+        'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
+        'Cookie': 'MLOGIN=0; _T_WM=84501405709; WEIBOCN_FROM=1110006030',
     }
 
     url = 'https://m.weibo.cn/api/container/getIndex?containerid=102803&openApp={}&since_id={}'
+
+    thread_lock = threading.Lock()
 
     def get_wb_json(self, app_num, page_num):
         """
@@ -183,7 +190,10 @@ class WbSpider:
                 res_info = self.get_wb_comment(detail_id=micro_blog_id)
                 print('*'*100)
                 print('获取评论：')
-                print(res_info[0:2])
+                if res_info is None:
+                    print(res_info)
+                else:
+                    print(res_info[0: 1])
                 if res_info:
                     new_comment_list = self.parse_comment_list(comment_list=res_info)
                     # 如果解析成功，则循环创建这条微博的评论实例对象
@@ -203,17 +213,106 @@ class WbSpider:
 
         return None
 
+    def get_blog_list(self, page_num):
+        """
+        通过传入页码数，请求微博API获取json数据，并解析数据
+        成功返回一个包含微博信息的列表，失败返回None
+        :param page_num: 微博API的页码数
+        :return:
+        """
+        json_list = self.get_wb_json(app_num=0, page_num=page_num)
+        micro_blog_list = self.parse_json_list(json_list)
+        return micro_blog_list
+
+    def get_comment_list(self, detail_id):
+        """
+        通过传入的详细微博ID，调用已有的方法，请求该条微博的评论API，获取评论数据，并解析需要的评论数据
+        成功返回一个包含评论数据的列表，失败返回None
+        :param detail_id:
+        :return:
+        """
+        comment_list = self.get_wb_comment(detail_id=detail_id)
+        new_comment_list = self.parse_comment_list(comment_list=comment_list)
+        return new_comment_list
+
+    def save_sql_run(self, page_num, have_blog_list=None):
+        """
+        保存数据到数据库：通过传入一个页码数，请求该页码数的API，获取数据，并解析数据；
+        同时请求每一条数据的评论数据，保存到数据库
+        :param page_num: 传入一个页码数，进行实时爬取数据；与 have_blog_list 参数 二选一
+        :param have_blog_list: 如果传入了此参数，则不再去实时爬取数据
+        :return:
+        """
+        micro_blog_list = have_blog_list
+        if not micro_blog_list:
+            json_list = self.get_wb_json(app_num=0, page_num=page_num)
+            micro_blog_list = self.parse_json_list(json_list)
+        # 写入微博内容（同时爬取评论内容）到数据库
+        WbSpider.thread_lock.acquire()
+        res = self.save_data_sql(micro_blog_list=micro_blog_list)
+        WbSpider.thread_lock.release()
+        random_num = random.choice(range(1, 3))
+        time.sleep(random_num)
+        return res
+
+
+class MyThread(threading.Thread):
+    """
+    自定义多线程类：修改了 run 方法（运行init中的func函数，并将函数结果赋值给self.result）；
+    自定义 get_result 方法，返回 run函数 中的函数运行结果
+    成功返回 函数结果；失败返回 None
+    """
+    def __init__(self, func, args=()):
+        super(MyThread, self).__init__()
+        self.func = func
+        self.args = args
+        self.result = None
+
+    def run(self):
+        self.result = self.func(*self.args)
+
+    def get_result(self):
+        return self.result
+        # try:
+        #     return self.result
+        # except Exception as e:
+        #     print(e)
+        #     return None
+
 
 if __name__ == '__main__':
     # a = WbSpider()
+    # c = a.get_comment_list(detail_id='4370533581672379')
+    # print(c)
 
-    # 关于微博内容
-    # json_list = a.get_wb_json(page_num=1)
-    # micro_blog_list = a.parse_json_list(json_list)
-    # print(micro_blog_list)
-    # # 写入微博内容（同时爬取评论内容）到数据库
-    # res = a.save_data_sql(micro_blog_list=micro_blog_list)
-    # print(res)
+    # res_list = list()
+    # thread_pool = list()
+    # for i in range(0, 10, 5):
+    #     for x in range(i, i+5):
+    #         t = MyThread(a.get_blog_list, args=(x,))
+    #         thread_pool.append(t)
+    #     for t in thread_pool:
+    #         t.start()
+    #     for t in thread_pool:
+    #         t.join()
+    #         res_list.extend(t.get_result())
+    #     thread_pool = list()
+    # print(res_list)
+    # print(len(res_list))
+
+    # 多线程爬取微博信息
+    thread_pool = list()
+    a = WbSpider()
+    for i in range(25, 50, 5):
+        for x in range(i, i+5):
+            t = threading.Thread(target=a.save_sql_run, args=(x, ))
+            thread_pool.append(t)
+        for t in thread_pool:
+            t.start()
+        for t in thread_pool:
+            t.join()
+        thread_pool = list()
+
 
     # print('*'*100)
     # # 关于评论内容
@@ -221,16 +320,3 @@ if __name__ == '__main__':
     # new_comment_list = a.parse_comment_list(comment_list)
     # print(new_comment_list)
 
-    # 爬取15次
-    spider_obj = WbSpider()
-    for num in range(50, 100):
-        json_list = spider_obj.get_wb_json(app_num=0, page_num=num)
-        micro_blog_list = spider_obj.parse_json_list(json_list)
-        print('*' * 100)
-        print('微博：')
-        print(micro_blog_list[0:2])
-        # 写入微博内容（同时爬取评论内容）到数据库
-        res = spider_obj.save_data_sql(micro_blog_list=micro_blog_list)
-        print(res)
-        random_num = random.choice(range(3, 7))
-        time.sleep(random_num)
