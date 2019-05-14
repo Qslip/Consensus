@@ -12,9 +12,8 @@
         <!-- favicon -->
         <!-- <link rel="shortcut icon" type="image/png" href="favicon.png" /> -->
         <!--[if (gt IE 9)|!(IE)]><!-->
+        <link rel="stylesheet" href="{% static '/bootstrap/css/main.css' %}">
         <!-- custom CSS -->
-        <link rel="stylesheet" href="{% static 'bootstrap/css/main.css' %}">
-        <!-- <link href="css/main.css" rel="stylesheet" type="text/css" /> -->
         <!-- END custom CSS -->
         <!--<![endif]-->
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,8 +23,18 @@
             <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         <title>News</title>
+        <style>
+            .pf{
+                font-size: 20px;
+                color: #0b0b0b;
+            }
+            .font{
+                font-size: 25px;
+                color: #0b0b0b;
+            }
+        </style>
     </head>
-    <body>
+    <body class="font">
         <!-- Header -->
         <header id="header" class="header">
             <div class="header__top">
@@ -150,13 +159,14 @@
                                     </ul>
                                 </li>
                                 <li class="navbar-right hidden-xs">
-                                    <form class="navbar-form " role="search">
+                                    <form class="navbar-form" role="search" action="{% url 'zhihu:search' %}" method="POST">
+                                        {% csrf_token %}
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Search">
+                                            <input type="text" class="form-control" placeholder="Search" name='key_word'>
                                         </div>
                                         <button type="submit" class="btn btn-search">
                                             <i class="icon-search"></i>
-                                            <br>Search
+                                            <br/>Search
                                         </button>
                                     </form>
                                 </li>
@@ -205,135 +215,23 @@
         </header>
         <!-- END header -->
         <!-- header slider -->
-        <div class="wrapper">
+        <div class="wrapper" style="background-image:url({% static 'bootstrap/img/content/slide6.jpg'%})">
             <article class="container articles">
                 <div class="row">
-                    <div class="col-sm-4 col-md-3 right_sidebar hidden-xs hidden-sm" data-spy="affix" data-offset-top="112" data-offset-bottom="80">
-                        <div class="news-tabs">
-                            <p class="news-tabs__title h2">News feed</p>
-                            <ul class="news-tabs__nav nav nav-tabs shadow_text" role="tablist">
-                                <li role="presentation" class="active">
-                                    <a href="#home" role="tab" data-toggle="tab">
-                                        <span class="time">today, 12:30</span>
-                                        Volkswagen hit by multiple probes in US
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#profile" role="tab" data-toggle="tab">
-                                        <span class="time">today, 12:30</span>
-                                        Volkswagen hit by multiple probes in US
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#messages" role="tab" data-toggle="tab">
-                                        <span class="time">today, 12:30</span>
-                                        Volkswagen hit by multiple probes in US
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#settings" role="tab" data-toggle="tab">
-                                        <span class="time">today, 12:30</span>
-                                        Volkswagen hit by multiple probes in US
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#home" role="tab" data-toggle="tab">
-                                        <span class="time">today, 12:30</span>
-                                        Volkswagen hit by multiple probes in US
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#profile" role="tab" data-toggle="tab">
-                                        <span class="time">today, 12:30</span>
-                                        Volkswagen hit by multiple probes in US
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#messages" role="tab" data-toggle="tab">
-                                        <span class="time">today, 12:30</span>
-                                        Volkswagen hit by multiple probes in US
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#settings" role="tab" data-toggle="tab">
-                                        <span class="time">today, 12:30</span>
-                                        Volkswagen hit by multiple probes in US
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-9 article_text">
+                    <div class="col-sm-12 col-md-9 article_text" style="background-color:rgb(246, 246, 246,0.9)">
                         <div class="current">
-                            <h1 class="text-center yel_line current__title">{{ question }}</h1>
-                            {% for i in answer %}
-                            <p class="current__text">i</p>
+                            <h1>{{ question }}</h1>
+                            <a href="{{ urls }}"><h3>原链接</h3></a> 
+                            <a href="{% url 'zhihu:save_data' url_id %}"><h3>保存此问题及答案(默认300条)</h3></a>
+                            <br>
+                            {% for k,v in answer.items %}
+                                <h3 class="text-center yel_line current__title">第{{ k }}个回答</h3>
+                                {%for i in v %}
+                                <p class="current__text pf">{{i}}</p>
+                                {% endfor %}
+                                <br>
+                                <br>
                             {% endfor %}
-                            <img src="{% static 'bootstrap/img/content/article2.jpg' %}" alt="img" class="current__img">
-                            <p class="current__text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
-                                ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid
-                                ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-                            <blockquote class="quote current__quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</blockquote>
-                            <p class="current__text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-9 tags">
-                        <p>Tags:</p>
-                        <ul>
-                            <li>
-                                <a href="#" title="World" class="font">World</a>
-                            </li>
-                            <li>
-                                <a class="yellow font" href="#" title="Sport">Sport</a>
-                            </li>
-                            <li>
-                                <a href="#" title="Cats" class="font">Cats</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-9 col-md-8 col-lg-6 comments">
-                        <p class="comments__title">Comments</p>
-                        <div class="comments__media">
-                            <div class="media-middle">
-                                <i class="media-object" style="background-image: url('img/content/comment.png')"></i>
-                                <div class="comm_info">
-                                    <h4 class="media-heading">Maria</h4>
-                                    <span class="time">today, 12:30</span>
-                                </div>
-                            </div>
-                            <p class="media-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        </div>
-                        <div class="comments__media">
-                            <div class="media-middle">
-                                <i class="media-object" style="background-image: url('img/content/comment.png')"></i>
-                                <div class="comm_info">
-                                    <h4 class="media-heading">Maria</h4>
-                                    <span class="time">today, 12:30</span>
-                                </div>
-                            </div>
-                            <p class="media-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        </div>
-                        <div class="comments__media">
-                            <div class="media-middle">
-                                <i class="media-object" style="background-image: url('img/content/comment.png')"></i>
-                                <div class="comm_info">
-                                    <h4 class="media-heading">Maria</h4>
-                                    <span class="time">today, 12:30</span>
-                                </div>
-                            </div>
-                            <p class="media-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        </div>
-                        <div class="comments__form">
-                            <form action="#" method="POST">
-                                <div class="form-group">
-                                    <input type="text" style="width: 200px;" class="form-control" placeholder="Your name">
-                                </div>
-                                <div class="form-group">
-                                    <textarea name="text" id="input" class="form-control" rows="7" required="required"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-comment">send</button>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -373,12 +271,9 @@
         </footer>
         <!-- END Footer -->
         <!-- All JavaScript libraries -->
-        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+		<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'bootstrap/js/main.js' %}"></script>
-		<!-- <script src="js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script> -->
-        <!-- Custom JavaScript -->
     </body>
 </html>
 

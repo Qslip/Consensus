@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from users.models import User
 from django.contrib.auth import login, logout
-from django.contrib.auth.hashers import check_password
+
 
 
 def register_index(request):
@@ -60,4 +60,4 @@ def login_index(request):
 
 def logout_index(request):
     logout(request)
-    return render(request, 'microblog/index.html')
+    return redirect('microblog:microblog_index')
