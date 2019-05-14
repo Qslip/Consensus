@@ -23,8 +23,18 @@
             <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         <title>News</title>
+        <style>
+            .pf{
+                font-size: 20px;
+                color: #0b0b0b;
+            }
+            .font{
+                font-size: 25px;
+                color: #0b0b0b;
+            }
+        </style>
     </head>
-    <body>
+    <body class="font">
         <!-- Header -->
         <header id="header" class="header">
             <div class="header__top">
@@ -205,19 +215,19 @@
         </header>
         <!-- END header -->
         <!-- header slider -->
-        <div class="wrapper">
+        <div class="wrapper" style="background-image:url({% static 'bootstrap/img/content/slide6.jpg'%})">
             <article class="container articles">
                 <div class="row">
-                    <div class="col-sm-12 col-md-9 article_text">
+                    <div class="col-sm-12 col-md-9 article_text" style="background-color:rgb(246, 246, 246,0.9)">
                         <div class="current">
                             <h1>{{ question }}</h1>
                             <a href="{{ urls }}"><h3>原链接</h3></a> 
                             <a href="{% url 'zhihu:save_data' url_id %}"><h3>保存此问题及答案(默认300条)</h3></a>
                             <br>
                             {% for k,v in answer.items %}
-                                <h3>第{{ k }}个回答</h3>
+                                <h3 class="text-center yel_line current__title">第{{ k }}个回答</h3>
                                 {%for i in v %}
-                                <p class="current__text">{{i}}</p>
+                                <p class="current__text pf">{{i}}</p>
                                 {% endfor %}
                                 <br>
                                 <br>
