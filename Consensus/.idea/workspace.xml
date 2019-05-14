@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87c0ded6-6d98-40a3-b4c4-6c7cdd5a5850" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microblog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/microblog/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microblog/my_thread.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/microblog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/microblog/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microblog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/microblog/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microblog/wb_spider.py" beforeDir="false" afterPath="$PROJECT_DIR$/microblog/wb_spider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/404.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/microblog/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/microblog/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/microblog/news.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/microblog/news.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +27,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/microblog/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
+            <state relative-caret-position="-1980">
               <caret line="12" selection-start-line="12" selection-end-line="14" selection-end-column="59" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
@@ -72,7 +61,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1770">
+            <state relative-caret-position="230">
               <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
@@ -104,8 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
+            <state relative-caret-position="240">
+              <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -113,11 +102,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/microblog/news.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
+            <state relative-caret-position="4770">
               <caret line="159" column="43" selection-start-line="159" selection-start-column="43" selection-end-line="159" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/microblog/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="124">
+              <caret line="163" column="60" selection-start-line="163" selection-start-column="60" selection-end-line="163" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -172,15 +170,15 @@
         <option value="$PROJECT_DIR$/microblog/urls.py" />
         <option value="$PROJECT_DIR$/microblog/models.py" />
         <option value="$PROJECT_DIR$/microblog/views.py" />
-        <option value="$PROJECT_DIR$/templates/microblog/index.html" />
         <option value="$PROJECT_DIR$/templates/microblog/subject.html" />
-        <option value="$PROJECT_DIR$/users/urls.py" />
         <option value="$PROJECT_DIR$/users/static/users/css/style.css" />
         <option value="$PROJECT_DIR$/templates/microblog/search-result.html" />
         <option value="$PROJECT_DIR$/templates/microblog/full-width.html" />
         <option value="$PROJECT_DIR$/users/templates/users/user_index.html" />
         <option value="$PROJECT_DIR$/users/views.py" />
         <option value="$PROJECT_DIR$/templates/microblog/news.html" />
+        <option value="$PROJECT_DIR$/users/urls.py" />
+        <option value="$PROJECT_DIR$/templates/microblog/index.html" />
       </list>
     </option>
   </component>
@@ -450,12 +448,12 @@
       <workItem from="1557649173462" duration="1618000" />
       <workItem from="1557658821169" duration="9458000" />
       <workItem from="1557704379081" duration="29951000" />
-      <workItem from="1557791085079" duration="31068000" />
+      <workItem from="1557791085079" duration="31543000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="146616000" />
+    <option name="totallyTimeSpent" value="147091000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -475,7 +473,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932975" visible="true" weight="0.16288953" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932975" visible="true" weight="0.15439093" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -723,17 +721,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/microblog/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="300" column="103" selection-start-line="300" selection-start-column="103" selection-end-line="300" selection-end-column="103" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#1;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#1;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/microblog/search-result.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -762,9 +749,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://E:/Python5/allvenvs/Consensus/Lib/site-packages/django/contrib/auth/base_user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="97" column="30" selection-start-line="97" selection-start-column="30" selection-end-line="97" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Python5/allvenvs/Consensus/Lib/site-packages/django/contrib/auth/hashers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Python5/allvenvs/Consensus/Lib/site-packages/django/contrib/auth/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="142" column="20" selection-start-line="142" selection-start-column="20" selection-end-line="142" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/microblog/404.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="214" column="50" selection-start-line="214" selection-start-column="50" selection-end-line="214" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/microblog/news.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4770">
+          <caret line="159" column="43" selection-start-line="159" selection-start-column="43" selection-end-line="159" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/microblog/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
+        <state relative-caret-position="-1980">
           <caret line="12" selection-start-line="12" selection-end-line="14" selection-end-column="59" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
@@ -790,30 +812,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://E:/Python5/allvenvs/Consensus/Lib/site-packages/django/contrib/auth/base_user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="97" column="30" selection-start-line="97" selection-start-column="30" selection-end-line="97" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/Python5/allvenvs/Consensus/Lib/site-packages/django/contrib/auth/hashers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="31">
-          <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/Python5/allvenvs/Consensus/Lib/site-packages/django/contrib/auth/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="142" column="20" selection-start-line="142" selection-start-column="20" selection-end-line="142" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/users/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1770">
+        <state relative-caret-position="230">
           <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
@@ -821,17 +822,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/microblog/404.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="214" column="50" selection-start-line="214" selection-start-column="50" selection-end-line="214" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/users/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
+        <state relative-caret-position="240">
+          <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -845,10 +839,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/microblog/news.html">
+    <entry file="file://$PROJECT_DIR$/templates/microblog/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="159" column="43" selection-start-line="159" selection-start-column="43" selection-end-line="159" selection-end-column="43" />
+        <state relative-caret-position="124">
+          <caret line="163" column="60" selection-start-line="163" selection-start-column="60" selection-end-line="163" selection-end-column="60" />
         </state>
       </provider>
     </entry>

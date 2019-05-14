@@ -156,8 +156,15 @@
                         </li>
                         <li>
                             <span class="wsmenu-click"></span>
-                            <a href="category.html">Main</a>
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'user:user_logout' %}" class="nav navbar-brand navbar-right">退出</a>
+                            <a href="#" class="nav navbar-brand navbar-right">{{ request.user }}</a>
+                        {% else %}
+                            <a href="{% url 'user:user_register' %}" class="nav navbar-brand navbar-right">注册</a>
+                            <a href="{% url 'user:user_login' %}" class="nav navbar-brand navbar-right">登录</a>
+                        {% endif %}
                         </li>
+
                         <li>
                             <span class="wsmenu-click"></span>
                             <a href="">Other
@@ -298,7 +305,7 @@
                                                        value="{{ res.special_subject }}">
                                             {% endif %}
                                             <button type="submit" class="myBtn">查看详细内容</button>
-                                        <a href="{{ res.detail_url }}" class="news__caption">微博原文详情</a>
+                                            <a href="{{ res.detail_url }}" class="news__caption">微博原文详情</a>
                                             <!-- <a href="{% url 'microblog:microblog_detail' res.micro_blog_id %}" class="news__link"> -->
                                             {% autoescape off %}
                                                 <p class="news__text">{{ res.content | safe }}</p>
