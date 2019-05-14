@@ -217,7 +217,7 @@ class Matlib:
 
 # print(a[2].values)
 # Matlib().frequency(b[2].values)
-a,b = Analyze(67).jie_ba()  
-Matlib().word_cloud(''.join(a.values))
+# a,b = Analyze(67).jie_ba()  
+# Matlib().word_cloud(''.join(a.values))
 
 
