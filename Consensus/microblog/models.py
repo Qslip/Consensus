@@ -3,6 +3,21 @@ from django.db import models
 # Create your models here.
 
 
+class SpecialSubject(models.Model):
+    """
+    微博专题信息数据表
+    """
+    title = models.CharField(max_length=200, unique=True, verbose_name='专题名称')
+    desc = models.CharField(max_length=300, null=True, verbose_name='专题描述')
+    midtext = models.CharField(max_length=100, null=True, verbose_name='专题阅读、讨论量')
+    downtext = models.CharField(max_length=100, null=True, verbose_name='专题主持人')
+    background_url = models.CharField(max_length=200, null=True, verbose_name='专题背景图片链接')
+    portrait = models.CharField(max_length=200, null=True, verbose_name='专题头像链接')
+
+    def __str__(self):
+        return self.title
+
+
 class MicroBlog(models.Model):
     """
     微博信息数据表
@@ -24,8 +39,14 @@ class MicroBlog(models.Model):
     author_url = models.CharField(max_length=200, verbose_name='微博作者链接')
     source = models.CharField(max_length=50, verbose_name='微博来源：如iPhone')
 
+    special_subject = models.ForeignKey(SpecialSubject, null=True,
+                                        on_delete=models.DO_NOTHING, verbose_name='关联专题')
+
     def __str__(self):
         return self.content
+
+    class Meta:
+        ordering = ['write_at']
 
 
 class MbImg(models.Model):

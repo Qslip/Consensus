@@ -1,4 +1,4 @@
-﻿{% load STATICFILES_DIRS %}
+﻿{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -13,7 +13,7 @@
         <!-- <link rel="shortcut icon" type="image/png" href="favicon.png" /> -->
         <!--[if (gt IE 9)|!(IE)]><!-->
         <!-- custom CSS -->
-        <link href="css/main.css" rel="stylesheet" type="text/css" />
+        <link href="{% static 'bootstrap/css/main.css' %}" rel="stylesheet" type="text/css" />
         <!-- END custom CSS -->
         <!--<![endif]-->
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -22,7 +22,7 @@
             <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
             <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <title>404 Page</title>
+        <title>保存成功页面</title>
     </head>
     <body>
         <div class="wrapper-sticky-footer">
@@ -208,18 +208,23 @@
                 <!-- Content-->
                 <div class="wrap-error">
                     <div class="error clearfix">
+                        {% if error %}
                         <div class="error__left">
-                            <p class="error__text">404</p>
+                            <p class="error__text">{{ error }}</p>
                         </div>
+                        {% endif %}
+
                         <div class="error__right">
-                            <div class="error__head">Page not found...</div>
+                            {% if success %}
+                            <div class="error__head">{{ success }}</div>
+                            {% endif %}
                             <p class="error__text">We're sorry, but we can't find the page you were looking for. It's probably some thing we've done wrong but now we know about it we'll try to fix it. In the meantime, try one of this options:</p>
                             <ul class="error__list">
+{#                                <li>#}
+{#                                    <a href="#" class="link">Go back to previous page</a>#}
+{#                                </li>#}
                                 <li>
-                                    <a href="#" class="link">Go back to previous page</a>
-                                </li>
-                                <li>
-                                    <a href="index.html" class="link">Go to homepage</a>
+                                    <a href="{% url 'microblog:microblog_index' %}" class="link">返回主页</a>
                                 </li>
                             </ul>
                         </div>
@@ -262,10 +267,11 @@
         </div>
         <!-- END Footer -->
         <!-- All JavaScript libraries -->
-		<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<!-- Custom JavaScript -->
-        <script src="js/main.js"></script>
+    <script src="{% static 'bootstrap/js/jquery-3.3.1.min.js' %}"></script>
+    <!-- <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script> -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- Custom JavaScript -->
+    <script src="{% static 'bootstrap/js/main.js' %}"></script>
     </body>
 </html>
 

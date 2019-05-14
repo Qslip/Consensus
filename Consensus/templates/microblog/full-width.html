@@ -1,0 +1,343 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="HandheldFriendly" content="true">
+    <meta content="telephone=no" name="format-detection">
+    <!-- favicon -->
+    <!-- <link rel="shortcut icon" type="image/png" href="favicon.png" /> -->
+    <!--[if (gt IE 9)|!(IE)]><!-->
+    <!-- custom CSS -->
+    <link href="{% static 'bootstrap/css/main.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END custom CSS -->
+    <!--<![endif]-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <title></title>
+</head>
+<body>
+<div class="wrapper-sticky-footer">
+    <div class="content-sticky">
+        <!-- Header -->
+        <header id="header" class="header">
+            <div class="header__top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="wrap-logo">
+                                <a href="index.html" class="logo"></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-2 col-md-offset-5 col-sm-6 col-md-4 hidden-xs">
+                            <div class="col-xs-4 col-sm-5">
+                                <div class="weather">
+                                    <div class="weather__temperature">
+                                        <span class="icon-sun"></span>
+                                        <em class="active">+8 C</em>
+                                        <em>+2 C</em>
+                                        <em>+3 C</em>
+                                    </div>
+                                    <div class="weather__city">
+                                        <em>London</em>
+                                        <div class="weather__city__list">
+                                            <ul>
+                                                <li class="active">
+                                                    <a href="#">London</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Moscow</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Kiev</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-7">
+                                <div class="exchange">
+                                    <p class="exchange__name">Central Bank Rate</p>
+                                    <p class="exchange__course">
+                                        $<span>32.32</span>&#8364;<span>28.23</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wsmenucontent overlapblackbg"></div>
+            <div class="wsmenuexpandermain slideRight">
+                <a id="navToggle" class="animated-arrow slideLeft">
+                    <span></span>
+                </a>
+            </div>
+            <div class="header_down">
+                <div class="container">
+                    <div class="wrapper clearfix bigmegamenu">
+                        <!--Main Menu HTML Code-->
+                        <nav class="wsmenu slideLeft clearfix">
+                            <ul class="mobile-sub wsmenu-list">
+                                <li class="visible-xs">
+                                    <form class="navbar-form mob_search" role="search">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Search">
+                                        </div>
+                                        <button type="submit" class="btn btn-search">
+                                            <i class="icon-search"></i>
+                                        </button>
+                                    </form>
+                                </li>
+
+                                <li class="active">
+                                    <span class="wsmenu-click"></span>
+                                    <a href="index.html">Home</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a href="category.html">Policy</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a href="category.html">Sport</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a href="category.html">Holidays</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a href="category.html">Religion</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a href="category.html">People</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a href="category.html">Main</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a href="">Other
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="wsmenu-submenu">
+                                        <li>
+                                            <a href="404.html">404 page</a>
+                                        </li>
+                                        <li>
+                                            <a href="category.html">Category page</a>
+                                        </li>
+                                        <li>
+                                            <a href="news.html">News page</a>
+                                        </li>
+                                        <li>
+                                            <a href="search-result.html">Search result</a>
+                                        </li>
+                                        <li>
+                                            <a href="full-width.html">Full width</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="navbar-right hidden-xs">
+                                    <form class="navbar-form mob_search" action="{% url 'microblog:microblog_search' %}"
+                                          method="get">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Search" name="keyword">
+                                        </div>
+                                        <button type="submit" class="btn btn-search">
+                                            <i class="icon-search"></i>
+                                        </button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <div class="visible-xs col-sm-offset-5 col-sm-4">
+                                        <div class="col-sm-5">
+                                            <div class="weather">
+                                                <div class="weather__temperature">
+                                                    <span class="icon-sun"></span>
+                                                    <em>+8 C</em>
+                                                </div>
+                                                <div class="weather__city">
+                                                    <em>London</em>
+                                                    <div class="weather__city__list">
+                                                        <ul>
+                                                            <li class="active">
+                                                                <a href="#">London</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">Moscow</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">Kiev</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <div class="exchange">
+                                                <p class="exchange__name">Central Bank Rate</p>
+                                                <p class="exchange__course">
+                                                    $<span>32.32</span>&#8364;<span>28.23</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!--Menu HTML Code-->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- END header -->
+        <!-- content-->
+        <!-- title -->
+        <div class="wrap wrap_white">
+            <div class="container title">
+                <h1 class="title__h1 underscore">Economy</h1>
+            </div>
+        </div>
+        <!-- END title -->
+        <div class="wrap wrap_gray pt20">
+            <div class="container">
+                {% if error %}
+                    <div class="error__left">
+                        <p class="error__text">{{ error }}</p>
+                    </div>
+                {% endif %}
+                <div class="row">
+{#                    <form class="wrap-thumbnail">#}
+                        {% if res_list %}
+                            {% for res in res_list %}
+                                <div class="thumbnail">
+                                    <div class="thumbnail__news news">
+                                        <!-- 如果有作者标题 -->
+                                        <a href="{% url 'microblog:microblog_analyze' res.id %}" class="news__caption">查看舆情分析详情</a>
+                                        <form action="{% url 'microblog:microblog_detail' res.micro_blog_id %}"
+                                              method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name='video_url' value="{{ res.video_url }}">
+                                            <input type="hidden" name="pics_list" value="{{ res.pics_list }}">
+                                            <input type="hidden" name="subject" value="{{ res.subject }}">
+                                            <input type="hidden" name="special_subject"
+                                                   value="{{ res.special_subject }}">
+                                            <input type="hidden" name="content" value="{{ res.content }}">
+                                            <input type="hidden" name="created_at" value="{{ res.created_at }}">
+                                            <input type="hidden" name="comment_count"
+                                                   value="{{ res.comment_count }}">
+                                            <input type="hidden" name="transmit_count"
+                                                   value="{{ res.transmit_count }}">
+
+                                            {% if res.subject %}
+                                                <p class="news__category underscore">{{ res.subject }}</p>
+                                            {% endif %}
+
+                                            <!-- 如果有微博专题 -->
+                                            {% if res.special_subject %}
+                                                <p class="news__category yellow-line"><a
+                                                        href="{% url 'microblog:microblog_subject' res.special_subject %}"
+                                                        class="thumbnail__link"
+                                                        style="text-decoration: none;">{{ res.special_subject }}</a>
+                                                </p>
+                                            {% endif %}
+
+                                            <button class="news__caption" type="submit">原文详情</button>
+
+                                            <a href="{{ res.detail_url }}" class="news__caption">微博原文详情</a>
+
+                                            {% autoescape off %}
+                                                <p class="news__text">{{ res.content | safe }}</p>
+                                            {% endautoescape %}
+
+                                            {#                                        <p class="news__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit,#}
+                                            {#                                            sed do#}
+                                            {#                                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim#}
+                                            {#                                            veniam,#}
+                                            {#                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea#}
+                                            {#                                            commodo consequat.</p>#}
+
+                                            <div class="posted">
+                                                <span class="posted__date">{{ res.created_at }}</span>
+                                                <ul class="posted__icon">
+                                                    <li>
+                                            <span>
+                                                <i class="icon-comment-empty"></i>{{ res.comment_count }}
+                                            </span>
+                                                    </li>
+                                                    <li>
+                                            <span>
+                                                <i class="icon-eye"></i>{{ res.transmit_count }}
+                                            </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END content-->
+</div>
+<!-- Footer -->
+<footer class="footer slate_gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <p class="copyright">Copyright &copy; 2019.Company name All rights reserved.</p>
+            </div>
+            <div class="col-sm-6">
+                <div class="social navbar-right">
+                    <p class="social__text">We are in social networks</p>
+                    <ul class="social__list">
+                        <li class="social__item">
+                            <a class="facebook" href="#">
+                                <i class="icon-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a class="twitter" href="#">
+                                <i class="icon-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="social__item">
+                            <a class="gplus" href="#">
+                                <i class="icon-gplus"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+<!-- END Footer -->
+<!-- All JavaScript libraries -->
+<script src="{% static 'bootstrap/js/jquery-3.3.1.min.js' %}"></script>
+<!-- <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script> -->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- Custom JavaScript -->
+<script src="{% static 'bootstrap/js/main.js' %}"></script>
+
+</body>
+</html>
+

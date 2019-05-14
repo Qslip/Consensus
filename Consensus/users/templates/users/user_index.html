@@ -1,0 +1,88 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- font files  -->
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+    <!-- /font files  -->
+    <!-- css files -->
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+    <!-- /css files -->
+</head>
+<body>
+<h1>登录注册</h1>
+<div class="log">
+    {% if error %}
+        <div class="alert alert-warning alert-dismissible col-sm-6 col-sm-offset-3" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <strong>{{ error }}</strong>
+        </div>
+    {% endif %}
+    {% if success %}
+                <div class="alert alert-warning alert-dismissible col-sm-6 col-sm-offset-3" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <strong>{{ success }}</strong>
+        </div>
+    {% endif %}
+    {% if logining %}
+        <div class="content1">
+            <h2>登录</h2>
+            <form action="{% url 'user:user_login' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="用户名" style="background: whitesmoke;color: black;"
+                       required>
+                <input type="password" name="password" placeholder="密码" style="background: whitesmoke;color: black;"
+                       required>
+                <div class="button-row">
+                    <input type="submit" class="sign-in" value="登录">
+                    <a href="{% url 'user:user_register' %}" type="reset" class="reset" style="text-decoration: none;">注册</a>
+                    <div class="clear"></div>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+
+    {% if registering %}
+        <div class="content2">
+            <h2>注册</h2>
+            <form action="{% url 'user:user_register' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="用户名" style="background: whitesmoke;color: black;"
+                       required>
+                <input type="password" name="password" placeholder="密码" style="background: whitesmoke;color: black;"
+                       required>
+                <input type="password" name="conpassword" placeholder="确认密码"
+                       style="background: whitesmoke;color: black;" required>
+                 <input type="submit" class="register" value="注册">
+                <br>
+                <a href="{% url 'user:user_login' %}" style="display: inline-block; margin: 0 auto;font-size: 30px;">返回登录</a>
+            </form>
+        </div>
+    {% endif %}
+    <div class="clear"></div>
+</div>
+<div class="footer">
+    <p>Copyright &copy; 2019.Company name All rights reserved. - Collect from ABC</p>
+</div>
+
+</body>
+<script src="{% static 'bootstrap/js/jquery-3.3.1.min.js' %}"></script>
+<!-- <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script> -->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</html>
