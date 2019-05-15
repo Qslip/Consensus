@@ -4,8 +4,7 @@ from .import views
 app_name = 'microblog'
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('index/', views.index, name='microblog_index'),
+    path('', views.index, name='microblog_index'),
     path('save_index/', views.save_index, name='microblog_save_index'),
     path('subject/<str:subject_name>/', views.subject_blog, name='microblog_subject'),
     path('save_subject/', views.save_subject, name='microblog_save_subject'),

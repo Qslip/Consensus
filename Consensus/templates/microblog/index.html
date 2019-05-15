@@ -132,62 +132,27 @@
 
                         <li class="active">
                             <span class="wsmenu-click"></span>
-                            <a href="{% url 'microblog:microblog_index' %}">Home</a>
+                            <a href="{% url 'microblog:microblog_index' %}">主页</a>
                         </li>
                         <li>
                             <span class="wsmenu-click"></span>
-                            <a href="">一键保存数据</a>
+                            <a href="{% url 'zhihu:index' %}">知乎</a>
                         </li>
-                        <li>
-                            <span class="wsmenu-click"></span>
-                            <a href="category.html">Sport</a>
-                        </li>
-                        <li>
-                            <span class="wsmenu-click"></span>
-                            <a href="category.html">Holidays</a>
-                        </li>
-                        <li>
-                            <span class="wsmenu-click"></span>
-                            <a href="category.html">Religion</a>
-                        </li>
-                        <li>
-                            <span class="wsmenu-click"></span>
-                            <a href="category.html">People</a>
-                        </li>
-                        <li>
-                            <span class="wsmenu-click"></span>
                         {% if request.user.is_authenticated %}
-                            <a href="{% url 'user:user_logout' %}" class="">退出</a>
-                            <a href="#" class="">{{ request.user }}</a>
+                            <li>
+                                <span class="wsmenu-click"></span>
+                                <a href="#" class="">{{ request.user }}</a>
+                            </li>
+                            <li>
+                                <span class="wsmenu-click"></span>
+                                <a href="{% url 'user:user_logout' %}" class="">退出</a>
+                            </li>
                         {% else %}
-{#                            <a href="{% url 'user:user_register' %}" class="nav navbar-brand navbar-right">注册</a>#}
-                            <a href="{% url 'user:user_login' %}" class="">登录</a>
+                            <li>
+                                <span class="wsmenu-click"></span>
+                                <a href="{% url 'user:user_login' %}" class="">登录</a>
+                            </li>
                         {% endif %}
-                        </li>
-
-                        <li>
-                            <span class="wsmenu-click"></span>
-                            <a href="">Other
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="wsmenu-submenu">
-                                <li>
-                                    <a href="404.html">404 page</a>
-                                </li>
-                                <li>
-                                    <a href="category.html">Category page</a>
-                                </li>
-                                <li>
-                                    <a href="news.html">News page</a>
-                                </li>
-                                <li>
-                                    <a href="analyse.html">Search result</a>
-                                </li>
-                                <li>
-                                    <a href="full-width.html">Full width</a>
-                                </li>
-                            </ul>
-                        </li>
                         <li class="navbar-right hidden-xs">
                             <form class="navbar-form mob_search" action="{% url 'microblog:microblog_search' %}"
                                   method="get">
@@ -282,7 +247,7 @@
                                         <a href="" class="thumbnail__link" style="height: 158px; overflow-y: auto;">
 
                                             <img src="{{ res.pics_list.0 }}"
-                                                 onerror="this.onerror='';this.src='{% static 'bootstrap/img/content/news1.jpg' %}'"
+                                                 onerror="this.onerror='';this.src='{% static res.img_url %}'"
                                                  width="270" height="158"/>
                                         </a>
                                         <input type="hidden" name="pics_list" value="{{ res.pics_list }}">
@@ -304,8 +269,10 @@
                                                 <input type="hidden" name="special_subject"
                                                        value="{{ res.special_subject }}">
                                             {% endif %}
-                                            <button type="submit" class="myBtn">查看详细内容</button>
-                                            <a href="{{ res.detail_url }}" class="news__caption">微博原文详情</a>
+                                            <div>
+                                            <button type="submit" class="myBtn" style="float: left;margin-top: 1px;margin-left: 10px;">查看详细内容</button>
+                                            <a href="{{ res.detail_url }}" class="news__caption"><button type="button" class="myBtn" style="margin-left: 43px;">微博原文详情</button></a>
+                                            </div>
                                             <!-- <a href="{% url 'microblog:microblog_detail' res.micro_blog_id %}" class="news__link"> -->
                                             {% autoescape off %}
                                                 <p class="news__text">{{ res.content | safe }}</p>
@@ -329,6 +296,7 @@
                                                 <i class="icon-eye"></i>{{ res.transmit_count }}
                                                 <input type="hidden" name="transmit_count"
                                                        value="{{ res.transmit_count }}">
+                                                <input type="hidden" name="detail_url" value="{{ res.detail_url }}">
                                             </span>
                                                 </li>
                                             </ul>

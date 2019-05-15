@@ -101,55 +101,27 @@
 
                                 <li class="active">
                                     <span class="wsmenu-click"></span>
-                                    <a href="index.html">Home</a>
+                                    <a href="{% url 'microblog:microblog_index' %}">主页</a>
                                 </li>
                                 <li>
                                     <span class="wsmenu-click"></span>
-                                    <a href="category.html">Policy</a>
+                                    <a href="{% url 'zhihu:index' %}">知乎</a>
                                 </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="category.html">Sport</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="category.html">Holidays</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="category.html">Religion</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="category.html">People</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="category.html">Main</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="">Other
-                                        <span class="arrow"></span>
-                                    </a>
-                                    <ul class="wsmenu-submenu">
-                                        <li>
-                                            <a href="404.html">404 page</a>
-                                        </li>
-                                        <li>
-                                            <a href="category.html">Category page</a>
-                                        </li>
-                                        <li>
-                                            <a href="news.html">News page</a>
-                                        </li>
-                                        <li>
-                                            <a href="search-result.html">Search result</a>
-                                        </li>
-                                        <li>
-                                            <a href="full-width.html">Full width</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                {% if request.user.is_authenticated %}
+                                    <li>
+                                        <span class="wsmenu-click"></span>
+                                        <a href="#" class="">{{ request.user }}</a>
+                                    </li>
+                                    <li>
+                                        <span class="wsmenu-click"></span>
+                                        <a href="{% url 'user:user_logout' %}" class="">退出</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <span class="wsmenu-click"></span>
+                                        <a href="{% url 'user:user_login' %}" class="">登录</a>
+                                    </li>
+                                {% endif %}
                                 <li class="navbar-right hidden-xs">
                                     <form class="navbar-form mob_search" action="{% url 'microblog:microblog_search' %}"
                                           method="get">
@@ -221,76 +193,77 @@
                     </div>
                 {% endif %}
                 <div class="row">
-{#                    <form class="wrap-thumbnail">#}
-                        {% if res_list %}
-                            {% for res in res_list %}
-                                <div class="thumbnail">
-                                    <div class="thumbnail__news news">
-                                        <!-- 如果有作者标题 -->
-                                        <a href="{% url 'microblog:microblog_analyze' res.id %}" class="news__caption">查看舆情分析详情</a>
-                                        <form action="{% url 'microblog:microblog_detail' res.micro_blog_id %}"
-                                              method="post">
-                                            {% csrf_token %}
-                                            <input type="hidden" name='video_url' value="{{ res.video_url }}">
-                                            <input type="hidden" name="pics_list" value="{{ res.pics_list }}">
-                                            <input type="hidden" name="subject" value="{{ res.subject }}">
-                                            <input type="hidden" name="special_subject"
-                                                   value="{{ res.special_subject }}">
-                                            <input type="hidden" name="content" value="{{ res.content }}">
-                                            <input type="hidden" name="created_at" value="{{ res.created_at }}">
-                                            <input type="hidden" name="comment_count"
-                                                   value="{{ res.comment_count }}">
-                                            <input type="hidden" name="transmit_count"
-                                                   value="{{ res.transmit_count }}">
+                    {#                    <form class="wrap-thumbnail">#}
+                    {% if res_list %}
+                        {% for res in res_list %}
+                            <div class="thumbnail">
+                                <div class="thumbnail__news news">
+                                    <!-- 如果有作者标题 -->
+                                    <a href="{% url 'microblog:microblog_analyze' res.id %}" class="news__caption">查看舆情分析详情</a>
+                                    <form action="{% url 'microblog:microblog_detail' res.micro_blog_id %}"
+                                          method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name='video_url' value="{{ res.video_url }}">
+                                        <input type="hidden" name="pics_list" value="{{ res.pics_list }}">
+                                        <input type="hidden" name="subject" value="{{ res.subject }}">
+                                        <input type="hidden" name="special_subject"
+                                               value="{{ res.special_subject }}">
+                                        <input type="hidden" name="content" value="{{ res.content }}">
+                                        <input type="hidden" name="created_at" value="{{ res.created_at }}">
+                                        <input type="hidden" name="comment_count"
+                                               value="{{ res.comment_count }}">
+                                        <input type="hidden" name="transmit_count"
+                                               value="{{ res.transmit_count }}">
+                                        <input type="hidden" name="detail_url"
+                                               value="{{ res.detail_url }}">
+                                        {% if res.subject %}
+                                            <p class="news__category underscore">{{ res.subject }}</p>
+                                        {% endif %}
 
-                                            {% if res.subject %}
-                                                <p class="news__category underscore">{{ res.subject }}</p>
-                                            {% endif %}
+                                        <!-- 如果有微博专题 -->
+                                        {% if res.special_subject %}
+                                            <p class="news__category yellow-line"><a
+                                                    href="{% url 'microblog:microblog_subject' res.special_subject %}"
+                                                    class="thumbnail__link"
+                                                    style="text-decoration: none;">{{ res.special_subject }}</a>
+                                            </p>
+                                        {% endif %}
 
-                                            <!-- 如果有微博专题 -->
-                                            {% if res.special_subject %}
-                                                <p class="news__category yellow-line"><a
-                                                        href="{% url 'microblog:microblog_subject' res.special_subject %}"
-                                                        class="thumbnail__link"
-                                                        style="text-decoration: none;">{{ res.special_subject }}</a>
-                                                </p>
-                                            {% endif %}
+                                        <button class="news__caption" type="submit">原文详情</button>
 
-                                            <button class="news__caption" type="submit">原文详情</button>
+                                        <a href="{{ res.detail_url }}" class="news__caption">微博原文详情</a>
 
-                                            <a href="{{ res.detail_url }}" class="news__caption">微博原文详情</a>
+                                        {% autoescape off %}
+                                            <p class="news__text">{{ res.content | safe }}</p>
+                                        {% endautoescape %}
 
-                                            {% autoescape off %}
-                                                <p class="news__text">{{ res.content | safe }}</p>
-                                            {% endautoescape %}
+                                        {#                                        <p class="news__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit,#}
+                                        {#                                            sed do#}
+                                        {#                                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim#}
+                                        {#                                            veniam,#}
+                                        {#                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea#}
+                                        {#                                            commodo consequat.</p>#}
 
-                                            {#                                        <p class="news__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit,#}
-                                            {#                                            sed do#}
-                                            {#                                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim#}
-                                            {#                                            veniam,#}
-                                            {#                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea#}
-                                            {#                                            commodo consequat.</p>#}
-
-                                            <div class="posted">
-                                                <span class="posted__date">{{ res.created_at }}</span>
-                                                <ul class="posted__icon">
-                                                    <li>
+                                        <div class="posted">
+                                            <span class="posted__date">{{ res.created_at }}</span>
+                                            <ul class="posted__icon">
+                                                <li>
                                             <span>
                                                 <i class="icon-comment-empty"></i>{{ res.comment_count }}
                                             </span>
-                                                    </li>
-                                                    <li>
+                                                </li>
+                                                <li>
                                             <span>
                                                 <i class="icon-eye"></i>{{ res.transmit_count }}
                                             </span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </form>
-                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </form>
                                 </div>
-                            {% endfor %}
-                        {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>

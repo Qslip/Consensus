@@ -42,6 +42,8 @@ def register_index(request):
 
 def login_index(request):
     # 登录
+    next_view = request.GET.get('next', None)
+
     if request.method == 'POST':
         info = request.POST
         username = info.get('username', None)
@@ -52,6 +54,9 @@ def login_index(request):
             return render(request, 'users/user_index.html', {'error': '用户名不存在', 'logining': True})
         if user_obj.check_password(password):
             login(request, user_obj)
+            if next_view:
+                print(next_view)
+                return redirect(next_view)
             return redirect('microblog:microblog_index')
         return render(request, 'users/user_index.html', {'error': '密码错误', 'logining': True})
     context = {'logining': True}

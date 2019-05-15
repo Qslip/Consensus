@@ -321,7 +321,8 @@ class Matlib:
 
 
 if __name__ == '__main__':
-    a = Analyze(micro_blog_id='680')
+    pass
+    # a = Analyze(micro_blog_id='680')
 
     # 去除空数据
     # droped_df = a.drop_na()
@@ -337,9 +338,9 @@ if __name__ == '__main__':
     # print(sno_df2)
     # print(len(sno_df2))
     #
-    s1, s2 = a.stop_()
-    data1 = Matlib().pie_graph(positive_df=s1, negative_df=s2)
-    print(data1)
+    # s1, s2 = a.stop_()
+    # data1 = Matlib().pie_graph(positive_df=s1, negative_df=s2)
+    # print(data1)
     # print(s1['info'])
     # print(s2['info'])
 

@@ -10,11 +10,6 @@ from django.db.models import Q
 # Create your views here.
 
 
-def home(request):
-    context = {}
-    return render(request, 'microblog/index.html', context)
-
-
 def index(request):
     random_list = random.sample(range(0, 50), 3)
     res_list = list()
@@ -37,6 +32,13 @@ def index(request):
     for t in thread_pool:
         res_list.extend(t.get_result())
     context = {'res_list': res_list}
+    n = 0
+    for i in res_list:
+        p_url = 'bootstrap/img/content/news%s.jpg' % n
+        i['img_url'] = p_url
+        n += 1
+        if n == 10:
+            n = 0
     return render(request, 'microblog/index.html', context)
 
 
@@ -77,6 +79,13 @@ def subject_blog(request, subject_name):
     subject_dict = wb_obj.parse_subject_json(subject_json=subject_json)  # 解析专题的json数据
     context = {'subject_dict': subject_dict}
     print('OK!')
+    n = 0
+    for i in subject_dict['card_blog_list']:
+        p_url = 'bootstrap/img/content/news%s.jpg' % n
+        i['img_url'] = p_url
+        n += 1
+        if n == 10:
+            n = 0
     return render(request, 'microblog/subject.html', context)
 
 
@@ -117,15 +126,25 @@ def detail_blog(request, detail_id):
         res_dict['created_at'] = req_info.get('created_at', None)
         res_dict['comment_count'] = req_info.get('comment_count', None)
         res_dict['transmit_count'] = req_info.get('transmit_count', None)
+        res_dict['detail_url'] = req_info.get('detail_url', None)
         pics_list = req_info.get('pics_list', None)
-        if pics_list:
-            try:
+        new_pics_list = list()  # 定义一个新的图片列表
+        if pics_list:  # 如果获取到图片列表
+            try:  # 将获取到的图片列表转换成列表
                 pics_list = eval(pics_list)
             except Exception as e:
                 print(e)
+                new_pics_list = list()
             else:
-                res_dict['pics_list'] = pics_list
-        print(pics_list)
+                if pics_list:
+                    n = 0
+                    for i in range(1, len(pics_list) + 1):
+                        p_url = 'bootstrap/img/content/slide%s.jpg' % n
+                        new_pics_list.append((pics_list[i-1], p_url))
+                        n += 1
+                        if n == 7:
+                            n = 0
+        res_dict['pics_list'] = new_pics_list
         wb_obj = WbSpider()  # 获取评论数据
         comment_list = wb_obj.get_comment_list(detail_id=detail_id)
         res_dict['comment_list'] = comment_list
@@ -174,7 +193,6 @@ def analyze_views(request, blog_id):
 
 
 def microblog_search(request):
-
     req_info = request.GET
     print(req_info)
     microblog_name = req_info.get('keyword', None)
@@ -187,8 +205,8 @@ def microblog_search(request):
         context = {
             'res_list': microblog_queryset
         }
-        return render(request, 'microblog/full-width.html', context)
+        return render(request, 'microblog/search.html', context)
     context = {
         'error': '请输入关键字查询'
     }
-    return render(request, 'microblog/full-width.html', context)
+    return render(request, 'microblog/search.html', context)

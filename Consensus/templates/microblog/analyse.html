@@ -101,63 +101,35 @@
 
                                 <li class="active">
                                     <span class="wsmenu-click"></span>
-                                    <a href="index.html">Home</a>
+                                    <a href="{% url 'microblog:microblog_index' %}">主页</a>
                                 </li>
                                 <li>
                                     <span class="wsmenu-click"></span>
-                                    <a href="category.html">Policy</a>
+                                    <a href="{% url 'zhihu:index' %}">知乎</a>
                                 </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="category.html">Sport</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="category.html">Holidays</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="category.html">Religion</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="category.html">People</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="category.html">Main</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a href="">Other
-                                        <span class="arrow"></span>
-                                    </a>
-                                    <ul class="wsmenu-submenu">
-                                        <li>
-                                            <a href="404.html">404 page</a>
-                                        </li>
-                                        <li>
-                                            <a href="category.html">Category page</a>
-                                        </li>
-                                        <li>
-                                            <a href="news.html">News page</a>
-                                        </li>
-                                        <li>
-                                            <a href="analyse.html">Search result</a>
-                                        </li>
-                                        <li>
-                                            <a href="full-width.html">Full width</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                {% if request.user.is_authenticated %}
+                                    <li>
+                                        <span class="wsmenu-click"></span>
+                                        <a href="#" class="">{{ request.user }}</a>
+                                    </li>
+                                    <li>
+                                        <span class="wsmenu-click"></span>
+                                        <a href="{% url 'user:user_logout' %}" class="">退出</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <span class="wsmenu-click"></span>
+                                        <a href="{% url 'user:user_login' %}" class="">登录</a>
+                                    </li>
+                                {% endif %}
                                 <li class="navbar-right hidden-xs">
-                                    <form class="navbar-form " role="search">
+                                    <form class="navbar-form mob_search" action="{% url 'microblog:microblog_search' %}"
+                                          method="get">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Search">
+                                            <input type="text" class="form-control" placeholder="Search" name="keyword">
                                         </div>
                                         <button type="submit" class="btn btn-search">
                                             <i class="icon-search"></i>
-                                            <br>Search
                                         </button>
                                     </form>
                                 </li>
@@ -222,7 +194,7 @@
                                 <!-- 如果有背景图片信息 -->
 
                                 <img src="{{ subject_obj.background_url }}" class="tab-pane__img"
-                                     onerror="this.onerror='';this.src='{% static 'bootstrap/img/content/slide2.jpg' %}'"/>
+                                     onerror="this.onerror='';this.src='{% static 'bootstrap/img/content/spec4.jpg' %}'"/>
                                 <!-- <img src="{% static 'bootstrap/img/content/slide1.jpg' %}" alt="main img" class="tab-pane__img"> -->
 
                                 <div class="header_news_text tab-pane__block">
@@ -239,17 +211,20 @@
 
                                     <!-- 如果该专题有专题描述信息 -->
                                     {% if subject_obj.desc %}
-                                        <p class="tab-pane__text" style="background-color: #f4edf2;">{{ subject_obj.desc }}</p>
+                                        <p class="tab-pane__text"
+                                           style="background-color: rgba(246,246,246,0.8);">{{ subject_obj.desc }}</p>
                                     {% endif %}
 
                                     <!-- 如果该专题有阅读量、讨论量信息 -->
                                     {% if subject_obj.midtext %}
-                                        <p class="tab-pane__text" style="background-color: #f4edf2;">{{ subject_obj.midtext }}</p>
+                                        <p class="tab-pane__text"
+                                           style="background-color: rgba(246,246,246,0.8);">{{ subject_obj.midtext }}</p>
                                     {% endif %}
 
                                     <!-- 如果该专题有主持人信息 -->
                                     {% if subject_obj.downtext %}
-                                        <p class="tab-pane__text" style="background-color: #f4edf2;">{{ subject_obj.downtext }}</p>
+                                        <p class="tab-pane__text"
+                                           style="background-color: rgba(246,246,246,0.8);">{{ subject_obj.downtext }}</p>
                                     {% endif %}
 
                                 </div>
