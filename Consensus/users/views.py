@@ -12,27 +12,26 @@ def register_index(request):
         password = info.get('password', None)
         conpassword = info.get('conpassword', None)
         if username and password and conpassword:
+            if not 20 > len(username) > 2:
+                context = {'error': '用户名应大于2位，小于20位！', 'registering': True}
+                return render(request, 'users/user_index.html', context)
+            if not 20 > len(password) > 5:
+                context = {'error': '密码应大于5位，小于20位！', 'registering': True}
+                return render(request, 'users/user_index.html', context)
+
+            if password != conpassword:
+                context = {'error': '两次密码不一致！', 'registering': True}
+                return render(request, 'users/user_index.html', context)
+
             try:
                 User.objects.get(username=username)
             except User.DoesNotExist:
-                if 20 > len(username) > 2:
-                    if 20 > len(password) > 5:
-                        if password == conpassword:
-                            User.objects.create_user(username=username, password=password)
-                            context = {'success': '用户创建成功！', 'logining': True}
-                            return render(request, 'users/user_index.html', context)
-
-                        context = {'error': '两次密码不一致！', 'registering': True}
-                        return render(request, 'users/user_index.html', context)
-
-                    context = {'error': '密码长度应大于5位，小于20位！', 'registering': True}
+                    User.objects.create_user(username=username, password=password)
+                    context = {'success': '用户创建成功！', 'logining': True}
                     return render(request, 'users/user_index.html', context)
-
-                context = {'error': '用户名应大于2位，小于20位！', 'registering': True}
+            else:
+                context = {'error': '该用户名已存在！', 'registering': True}
                 return render(request, 'users/user_index.html', context)
-
-            context = {'error': '该用户名已存在！', 'registering': True}
-            return render(request, 'users/user_index.html', context)
         else:
             context = {'error': '请输入用户名、密码、确认密码！', 'registering': True}
             return render(request, 'users/user_index.html', context)

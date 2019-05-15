@@ -205,7 +205,7 @@ class Matlib:
     """
 
     def word_cloud(self, string, img_path=None,
-                   font_path=os.path.join(BASE_DIR, 'microblog/simfang.ttf')):
+                   font_path=os.path.join(BASE_DIR, 'zhihu/font/simfang.ttf')):
         """
         绘制词云图
         """
