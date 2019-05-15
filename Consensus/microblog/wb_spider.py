@@ -180,7 +180,7 @@ class WbSpider:
         :param micro_blog_list: 一个多条微博数据的列表（）
         :param subject_obj: 专题对象（如果传入了专题对象，则不再去抓取专题对象；用于专题下保存数据库）
         :return:
-        """
+            """
         if micro_blog_list:
             for micro_b in micro_blog_list:
                 # 创建微博对象实例
@@ -205,6 +205,9 @@ class WbSpider:
                     else:
                         subject_obj = None
                 try:
+                    print(micro_b['author_url'])
+                    print(micro_b['source'])
+                    print(subject_obj)
                     micro_blog_obj = MicroBlog.objects.create(
                         detail_url=micro_b['detail_url'], micro_blog_id=micro_b['micro_blog_id'],
                         content=micro_b['content'], subject=micro_b['subject'], video_url=micro_b['video_url'],
@@ -214,7 +217,7 @@ class WbSpider:
                         author_description=micro_b['author_description'], author_profile=micro_b['author_profile'],
                         author_url=micro_b['author_url'], source=micro_b['source'], special_subject=subject_obj
                     )
-                except IntegrityError:
+                except (IntegrityError, ValueError):
                     print('*' * 100)
                     print('重复错误！')
                     continue
@@ -504,9 +507,10 @@ class MyThread(threading.Thread):
 
 
 if __name__ == '__main__':
-    a = WbSpider()
-    rs = a.save_subject_sql(subject_name='#NBA吐槽大会#')
-    print(rs)
+    pass
+    # a = WbSpider()
+    # rs = a.save_subject_sql(subject_name='#搞笑#')
+    # print(rs)
     # s = a.get_subject_json(subject_name='#搞笑#')
     # rs = a.parse_subject_json(subject_json=s)
     # print(rs)
@@ -537,7 +541,7 @@ if __name__ == '__main__':
     # 多线程爬取微博信息
     thread_pool = list()
     a = WbSpider()
-    for i in range(0, 6, 5):
+    for i in range(30, 51, 5):
         for x in range(i, i+5):
             t = threading.Thread(target=a.save_sql_run, args=(x, ))
             thread_pool.append(t)
@@ -546,6 +550,8 @@ if __name__ == '__main__':
         for t in thread_pool:
             t.join()
         thread_pool = list()
+        random_num = random.choice(range(1, 3))
+        time.sleep(random_num)
 
     # print('*'*100)
     # # 关于评论内容
