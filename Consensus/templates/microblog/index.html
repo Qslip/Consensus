@@ -244,7 +244,7 @@
                                         <input type="hidden" name='video_url' value="{{ res.video_url }}">
                                     {% else %}
                                         <!-- 如果有图片 -->
-                                        <a href="" class="thumbnail__link" style="height: 158px; overflow-y: auto;">
+                                        <a href="" class="thumbnail__link" style="height: 158px; width: auto;">
 
                                             <img src="{{ res.pics_list.0 }}"
                                                  onerror="this.onerror='';this.src='{% static res.img_url %}'"
