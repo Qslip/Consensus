@@ -541,7 +541,7 @@ if __name__ == '__main__':
     # 多线程爬取微博信息
     thread_pool = list()
     a = WbSpider()
-    for i in range(30, 51, 5):
+    for i in range(0, 51, 5):
         for x in range(i, i+5):
             t = threading.Thread(target=a.save_sql_run, args=(x, ))
             thread_pool.append(t)
