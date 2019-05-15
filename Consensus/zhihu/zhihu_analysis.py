@@ -143,7 +143,7 @@ class Matlib:
         画图
     """
     def word_cloud(self, string, img_path=None,
-    font_path='./static/fonts/simfang.ttf',):
+    font_path='./zhihu/fonts/simfang.ttf',):
         """ 绘制词云 """
         # 示例  : a,b = Analyze(67).jie_ba()  Matlib().word_cloud(''.join(a.values))  jieba 词的分析
         if img_path:

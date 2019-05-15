@@ -95,68 +95,31 @@
                                 <!--Main Menu HTML Code-->
                                 <nav class="wsmenu slideLeft clearfix">
                                     <ul class="mobile-sub wsmenu-list">
-                                        <li class="visible-xs">
-                                            <form class="navbar-form mob_search" role="search">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Search">
-                                                </div>
-                                                <button type="submit" class="btn btn-search">
-                                                    <i class="icon-search"></i>
-                                                </button>
-                                            </form>
-                                        </li>
-
+                                        <!-- 跳转到主页 -->
                                         <li class="active">
                                             <span class="wsmenu-click"></span>
-                                            <a href="index.html">Home</a>
+                                            <a href="{% url 'microblog:microblog_index' %}">主页</a>
                                         </li>
+                                        <!-- 跳转到知乎页 -->
                                         <li>
                                             <span class="wsmenu-click"></span>
-                                            <a href="category.html">Policy</a>
+                                            <a href="{% url 'zhihu:index' %}">知乎</a>
                                         </li>
+                                        {% if request.user.is_authenticated %}
+                                            <li>
+                                                <span class="wsmenu-click"></span>
+                                                <a href="#">{{ request.user }}</a>
+                                            </li>
+                                            <li>
+                                                <span class="wsmenu-click"></span>
+                                                <a href="{% url 'user:user_logout' %}">退出</a>
+                                            </li>
+                                        {% else %}
                                         <li>
                                             <span class="wsmenu-click"></span>
-                                            <a href="category.html">Sport</a>
+                                            <a href="{% url 'user:user_login' %}">登录</a>
                                         </li>
-                                        <li>
-                                            <span class="wsmenu-click"></span>
-                                            <a href="category.html">Holidays</a>
-                                        </li>
-                                        <li>
-                                            <span class="wsmenu-click"></span>
-                                            <a href="category.html">Religion</a>
-                                        </li>
-                                        <li>
-                                            <span class="wsmenu-click"></span>
-                                            <a href="category.html">People</a>
-                                        </li>
-                                        <li>
-                                            <span class="wsmenu-click"></span>
-                                            <a href="category.html">Main</a>
-                                        </li>
-                                        <li>
-                                            <span class="wsmenu-click"></span>
-                                            <a href="">Other
-										<span class="arrow"></span>
-			                        </a>
-                                            <ul class="wsmenu-submenu">
-                                                <li>
-                                                    <a href="404.html">404 page</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Category page</a>
-                                                </li>
-                                                <li>
-                                                    <a href="news.html">News page</a>
-                                                </li>
-                                                <li>
-                                                    <a href="search-result.html">Search result</a>
-                                                </li>
-                                                <li>
-                                                    <a href="full-width.html">Full width</a>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                        {% endif %}
                                         <li class="navbar-right hidden-xs">
                                             <form class="navbar-form" role="search" action="{% url 'zhihu:search' %}" method="POST">
                                                 {% csrf_token %}

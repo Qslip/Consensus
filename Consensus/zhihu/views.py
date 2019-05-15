@@ -45,11 +45,13 @@ def data(request, page=None):
     return render(request, 'zhihu/zhihu-index.html', context=data)
 
 def save_(info, q, arg_a, arg_b):
+    threading_lock = threading.Lock()
     for k,v in tuple(info['answer'].items())[arg_a:arg_b]:
         an = q.zhihuanswer_set.create(arg=k)
         for i in v:
-            time.sleep(0.1)
+            threading_lock.acquire()
             an.zhihuinfo_set.create(info=i)
+            threading_lock.release()
         print('第%s个回答保存完毕'%k)
 
 def save_data(request, url_id):

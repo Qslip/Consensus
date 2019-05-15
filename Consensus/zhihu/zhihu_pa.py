@@ -191,9 +191,8 @@ class DataThread (threading.Thread):
         self.ne = ne
         self.sav = sav
     def run(self):
-        if self.sav:
-            r = random.choice(range(10))
-            time.sleep(r)
+        r = random.choice([0,0.3,0.5,0.7,0.9,1,1.3,1.5,1.7])
+        time.sleep(r)
         self.data = info(self.url, self.limit, self.ne)
 
     def get_result(self):
@@ -203,7 +202,7 @@ class DataThread (threading.Thread):
             print(e)
             return None
 
-def get_data(pages=10, limit=10, page=None, ne=None, sav='save'):
+def get_data(pages=10, limit=10, page=None, ne=None):
     """
         实时爬取得到想要的数据
         pages: 要得到知乎热榜的数量pages（最多50条），得到跳转完整网址
@@ -218,7 +217,7 @@ def get_data(pages=10, limit=10, page=None, ne=None, sav='save'):
     pool = []
     for t in urls_lists:
         # print('t',t)
-        pool.append(DataThread(t, limit, ne, sav=sav))
+        pool.append(DataThread(t, limit, ne))
     for s in pool:
         s.start()
     for j in pool:
