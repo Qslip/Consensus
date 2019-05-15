@@ -12,7 +12,7 @@ import time
 # @cache_page(TIME_OUT)  # 设置缓存时间
 def data(request, page=None):
     """
-        默认展示知乎热榜前 10 个数据
+        默认展示知乎热榜前 12 个数据
     """
     # print(datas)
     pages = request.GET.get('pages', 12)
