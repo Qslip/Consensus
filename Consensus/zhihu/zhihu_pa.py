@@ -1,9 +1,15 @@
 from bs4 import BeautifulSoup
-from .usergent import get_one_agent
+from zhihu.usergent import get_one_agent
 import requests
 import threading
 import random
 import time
+
+import os
+import django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Consensus')
+django.setup()
+from zhihu.models import ZhihuAnswer,ZhihuInfo,ZhihuQuestion
 
 # Create your views here.
 
@@ -11,7 +17,7 @@ import time
 
 def news_url(newurl, encode='utf-8'):
     """
-        得到知乎热榜第一个url_id
+        得到知乎热榜第一个 url_id
     """
     html = requests.get(newurl).json()
     url_id = html['data']['site']['subs'][0]['items'][0]['iid']
@@ -227,6 +233,34 @@ def get_data(pages=10, limit=10, page=None, ne=None):
         if get_result:
             datas['data'].append(get_result)
     return datas
+
+
+def save_(info, q, arg_a, arg_b):
+        threading_lock = threading.Lock()
+        for k,v in tuple(info['answer'].items())[arg_a:arg_b]:
+            an = q.zhihuanswer_set.create(arg=k)
+            for i in v:
+                threading_lock.acquire()
+                an.zhihuinfo_set.create(info=i)
+                threading_lock.release()
+            print('第%s个回答保存完毕'%k)
+
+def save_data(url_id):
+    info = get_content_save(url_id,300)
+    try:
+        ZhihuQuestion.objects.get(question=info['question'])
+    except:
+        zhihu_url = 'https://www.zhihu.com/question/%s'%url_id
+        q = ZhihuQuestion.objects.create(info_url=zhihu_url, question=info['question'])
+        t = []
+        for i in range(0, len(info['answer']),60):
+            t.append(threading.Thread(target=save_,args=(info, q, i, i+60)))
+            # t.start  
+        for s in t:
+            s.start()
+        for j in t:
+            j.join()
+
 # headers = {"User-Agent" : "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;"}
 # res = requests.get('https://www.anyknew.com/go/3600688',headers=headers)
 # print(res)
@@ -234,4 +268,7 @@ def get_data(pages=10, limit=10, page=None, ne=None):
 
 
 if __name__ == "__main__":
-    pass
+
+    data = get_data(50, 300, page=None,ne=1)
+    for i in data['data']:
+        save_data(i['url_id'])
